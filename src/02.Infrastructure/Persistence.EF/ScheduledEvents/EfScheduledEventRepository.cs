@@ -17,4 +17,9 @@ public class EfScheduledEventRepository : IScheduledEventRepository
     {
         _scheduledEvents.Add(scheduledEvent);
     }
+
+    public async Task<ScheduledEvent?> FindById(int id)
+    {
+        return await _scheduledEvents.FindAsync(id);
+    }
 }

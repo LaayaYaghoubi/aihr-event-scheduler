@@ -6,4 +6,5 @@ namespace AIHR.EventScheduler.Application.ScheduledEvents.Contracts;
 public interface IScheduledEventRepository : IRepository
 {
     void Add(ScheduledEvent scheduledEvent);
+    Task<ScheduledEvent?> FindById(int id);
 }

@@ -23,4 +23,12 @@ public class ScheduledEventController : ControllerBase
         var response = await _scheduledEventService.AddAsync(dto);
         return Ok(response);
     }
+    
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult> Update([FromRoute] int id, UpdateScheduledEventDto dto)
+    {
+        await _scheduledEventService.UpdateAsync(id, dto);
+        return Ok();
+    }
 }

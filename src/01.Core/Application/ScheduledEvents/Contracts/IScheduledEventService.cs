@@ -6,5 +6,6 @@ namespace AIHR.EventScheduler.Application.ScheduledEvents.Contracts;
 
 public interface IScheduledEventService : IService
 {
-    Task<ScheduledEvent> AddAsync(AddScheduledEventDto addScheduledEventDto);
+    Task<ScheduledEvent> AddAsync(AddScheduledEventDto dto);
+    Task UpdateAsync(int scheduledEventId, UpdateScheduledEventDto dto);
 }

@@ -21,10 +21,6 @@
       <ProjectReference Include="..\..\02.Infrastructure\Infrastructure\AIHR.EventSchedulerInfrastructure.csproj" />
       <ProjectReference Include="..\..\02.Infrastructure\Persistence.EF\AIHR.EventScheduler.Persistence.EF.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Controllers\" />
-    </ItemGroup>
     
 
 </Project>
