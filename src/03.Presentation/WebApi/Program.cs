@@ -1,4 +1,5 @@
 using AIHR.EventScheduler.Persistence.EF;
+using AIHR.EventScheduler.WebApi.Configs.Middlewares;
 using AIHR.EventScheduler.WebApi.Configs.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +13,11 @@ builder.Services.AddDbContextPool<EfDataContext>(options =>
 {
     options.UseSqlite("Data Source=EventScheduling.db");
 });
+builder.Services.AddExceptionHandler<KnownExceptionHandler>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 builder.Services.AddControllers();
+
 var app = builder.Build();
 
 EnsureDatabaseCreated(app);
@@ -23,6 +28,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseExceptionHandler();
 app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();
