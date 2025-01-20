@@ -3,6 +3,7 @@ using AIHR.EventScheduler.Application.ScheduledEvents.Contracts.Dto;
 using AIHR.EventScheduler.Application.ScheduledEvents.Exceptions;
 using AIHR.EventScheduler.Contracts.Interfaces;
 using AIHR.EventScheduler.Domain.Entities.ScheduledEvents;
+using AIHR.EventSchedulerInfrastructure.Helper;
 
 namespace AIHR.EventScheduler.Application.ScheduledEvents;
 
@@ -47,6 +48,11 @@ public class ScheduledEventService(
     public async Task<GetScheduledEventDto?> GetByIdAsync(int id)
     {
         return await repository.GetByIdAsync(id);
+    }
+
+    public async Task<PagedList<GetScheduledEventDto>> GetAllAsync(SortOrder sortOrder, Pagination pagination)
+    {
+        return await repository.GetAll(sortOrder, pagination);
     }
 
     private async Task<ScheduledEvent?> ThrowIfScheduledEventNotFound(int id)

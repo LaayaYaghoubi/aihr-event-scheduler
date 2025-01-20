@@ -1,6 +1,7 @@
 using AIHR.EventScheduler.Application.ScheduledEvents.Contracts;
 using AIHR.EventScheduler.Application.ScheduledEvents.Contracts.Dto;
 using AIHR.EventScheduler.Domain.Entities.ScheduledEvents;
+using AIHR.EventSchedulerInfrastructure.Helper;
 using Microsoft.EntityFrameworkCore;
 
 namespace AIHR.EventScheduler.Persistence.EF.ScheduledEvents;
@@ -35,5 +36,21 @@ public class EfScheduledEventRepository(EfDataContext context) : IScheduledEvent
                 scheduledEvent.DateRange.Start,
                 scheduledEvent.DateRange.End))
             .FirstOrDefaultAsync();
+    }
+
+    public async Task<PagedList<GetScheduledEventDto>> GetAll(SortOrder sortOrder, Pagination pagination)
+    {
+        var query = sortOrder == SortOrder.Descending
+            ? _scheduledEvents.OrderByDescending(e => e.DateRange.Start)
+            : _scheduledEvents.OrderBy(e => e.DateRange.Start);
+
+        var dtoQuery = query.Select(e => new GetScheduledEventDto(
+            e.Id,
+            e.Title,
+            e.Description,
+            e.DateRange.Start,
+            e.DateRange.End));
+
+        return await PagedList<GetScheduledEventDto>.CreateAsync(dtoQuery, pagination);
     }
 }

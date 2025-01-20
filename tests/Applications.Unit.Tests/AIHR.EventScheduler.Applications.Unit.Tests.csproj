@@ -23,7 +23,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\01.Core\Application\AIHR.EventScheduler.Application.csproj" />
-      <ProjectReference Include="..\..\src\02.Infrastructure\Infrastructure\AIHR.EventSchedulerInfrastructure.csproj" />
       <ProjectReference Include="..\Test.Tools\AIHR.EventScheduler.Test.Tools.csproj" />
     </ItemGroup>
 

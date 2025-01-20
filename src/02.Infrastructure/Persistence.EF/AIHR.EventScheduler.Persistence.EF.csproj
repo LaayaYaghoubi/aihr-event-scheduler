@@ -16,6 +16,5 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\01.Core\Application\AIHR.EventScheduler.Application.csproj" />
-      <ProjectReference Include="..\..\01.Core\Domain\AIHR.EventScheduler.Domain.csproj" />
     </ItemGroup>
 </Project>

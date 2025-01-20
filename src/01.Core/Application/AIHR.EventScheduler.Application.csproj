@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\00.Framework\Contracts\AIHR.EventScheduler.Contracts.csproj" />
+      <ProjectReference Include="..\..\02.Infrastructure\Infrastructure\AIHR.EventSchedulerInfrastructure.csproj" />
       <ProjectReference Include="..\Domain\AIHR.EventScheduler.Domain.csproj" />
     </ItemGroup>
 
