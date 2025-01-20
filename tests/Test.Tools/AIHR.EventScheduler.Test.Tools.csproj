@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>AIHR.EventScheduler.Test.Tools</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\02.Infrastructure\Infrastructure\AIHR.EventSchedulerInfrastructure.csproj" />
+      <ProjectReference Include="..\..\src\02.Infrastructure\Persistence.EF\AIHR.EventScheduler.Persistence.EF.csproj" />
+    </ItemGroup>
+
+</Project>
