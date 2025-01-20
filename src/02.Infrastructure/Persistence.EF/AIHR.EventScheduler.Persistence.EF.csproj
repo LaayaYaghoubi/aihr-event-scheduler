@@ -4,7 +4,18 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>Persistence.EF</RootNamespace>
+        <RootNamespace>AIHR.EventScheduler.Persistence.EF</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Autofac" Version="8.2.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\01.Core\Application\AIHR.EventScheduler.Application.csproj" />
+      <ProjectReference Include="..\..\01.Core\Domain\AIHR.EventScheduler.Domain.csproj" />
+    </ItemGroup>
 </Project>
