@@ -44,6 +44,11 @@ public class ScheduledEventService(
         await unitOfWork.Complete();
     }
 
+    public async Task<GetScheduledEventDto?> GetByIdAsync(int id)
+    {
+        return await repository.GetByIdAsync(id);
+    }
+
     private async Task<ScheduledEvent?> ThrowIfScheduledEventNotFound(int id)
     {
         var scheduledEvent = await repository.FindById(id);

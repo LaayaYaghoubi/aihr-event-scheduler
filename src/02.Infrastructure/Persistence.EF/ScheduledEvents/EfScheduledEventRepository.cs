@@ -1,17 +1,13 @@
 using AIHR.EventScheduler.Application.ScheduledEvents.Contracts;
+using AIHR.EventScheduler.Application.ScheduledEvents.Contracts.Dto;
 using AIHR.EventScheduler.Domain.Entities.ScheduledEvents;
 using Microsoft.EntityFrameworkCore;
 
 namespace AIHR.EventScheduler.Persistence.EF.ScheduledEvents;
 
-public class EfScheduledEventRepository : IScheduledEventRepository
+public class EfScheduledEventRepository(EfDataContext context) : IScheduledEventRepository
 {
-    private readonly DbSet<ScheduledEvent> _scheduledEvents;
-
-    public EfScheduledEventRepository(EfDataContext context)
-    {
-        _scheduledEvents = context.Set<ScheduledEvent>();
-    }
+    private readonly DbSet<ScheduledEvent> _scheduledEvents = context.Set<ScheduledEvent>();
 
     public void Add(ScheduledEvent scheduledEvent)
     {
@@ -25,6 +21,19 @@ public class EfScheduledEventRepository : IScheduledEventRepository
 
     public void Delete(ScheduledEvent scheduledEvent)
     {
-         _scheduledEvents.Remove(scheduledEvent);
+        _scheduledEvents.Remove(scheduledEvent);
+    }
+
+    public async Task<GetScheduledEventDto?> GetByIdAsync(int id)
+    {
+        return await _scheduledEvents
+            .Where(scheduledEvent => scheduledEvent.Id == id)
+            .Select(scheduledEvent => new GetScheduledEventDto(
+                scheduledEvent.Id,
+                scheduledEvent.Title,
+                scheduledEvent.Description,
+                scheduledEvent.DateRange.Start,
+                scheduledEvent.DateRange.End))
+            .FirstOrDefaultAsync();
     }
 }

@@ -9,4 +9,5 @@ public interface IScheduledEventService : IService
     Task<ScheduledEvent> AddAsync(AddScheduledEventDto dto);
     Task UpdateAsync(int id, UpdateScheduledEventDto dto);
     Task Delete(int id);
+    Task<GetScheduledEventDto?> GetByIdAsync(int id);
 }
