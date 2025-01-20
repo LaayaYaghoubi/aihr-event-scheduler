@@ -22,4 +22,9 @@ public class EfScheduledEventRepository : IScheduledEventRepository
     {
         return await _scheduledEvents.FindAsync(id);
     }
+
+    public void Delete(ScheduledEvent scheduledEvent)
+    {
+         _scheduledEvents.Remove(scheduledEvent);
+    }
 }

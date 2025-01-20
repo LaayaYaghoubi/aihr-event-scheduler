@@ -31,4 +31,12 @@ public class ScheduledEventController : ControllerBase
         await _scheduledEventService.UpdateAsync(id, dto);
         return Ok();
     }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult> Delete([FromRoute] int id)
+    {
+        await _scheduledEventService.Delete(id);
+        return Ok();
+    }
 }
