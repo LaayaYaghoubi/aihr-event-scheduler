@@ -1,0 +1,54 @@
+<div class="container">
+    <mat-toolbar>
+        <span>{{action}} Event </span>
+    </mat-toolbar>
+    <mat-card>
+        <form [formGroup]="form" (ngSubmit)="saveScheduledEvent()">
+            <mat-card-content>
+                <mat-form-field>
+                    <mat-label>Title</mat-label>
+                    <input formControlName="title" matInput placeholder="Enter title">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Description</mat-label>
+                    <textarea formControlName="description" matInput placeholder="Enter description"></textarea>
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <mat-label>Choose a start date</mat-label>
+                    <input matInput formControlName="startDate" [matDatepicker]="startDatepicker">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="startDatepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startDatepicker></mat-datepicker>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                    <mat-label>Pick a time</mat-label>
+                    <input matInput formControlName="startTime" [matTimepicker]="starttimePicker">
+                    <mat-timepicker-toggle matIconSuffix [for]="starttimePicker"></mat-timepicker-toggle>
+                    <mat-timepicker #starttimePicker></mat-timepicker>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                    <mat-label>Choose a end date</mat-label>
+                    <input matInput formControlName="endDate" [matDatepicker]="endDatepicker">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="endDatepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endDatepicker></mat-datepicker>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                    <mat-label>Pick a time</mat-label>
+                    <input matInput formControlName="endTime" [matTimepicker]="endtimePicker">
+                    <mat-timepicker-toggle matIconSuffix [for]="endtimePicker"></mat-timepicker-toggle>
+                    <mat-timepicker #endtimePicker></mat-timepicker>
+                  </mat-form-field>
+
+                <div class="button-group">
+                    <button mat-flat-button routerLink="/dashboard/events">Back</button>
+                    <button [disabled]="form.invalid" type="submit" mat-flat-button color="primary">Accept</button>
+                </div>
+            </mat-card-content>
+        </form>
+    </mat-card>
+</div>
