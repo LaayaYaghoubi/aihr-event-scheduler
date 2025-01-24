@@ -9,9 +9,19 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Host.AddAutofacConfig();
 
-builder.Services.AddDbContextPool<EfDataContext>(options =>
+builder.Services.AddDbContextPool<EfDataContext>(options => { options.UseSqlite("Data Source=EventScheduling.db"); });
+
+var allowedOrigins = builder.Configuration.GetValue<string>("AllowedOrigins")!.Split(",");
+
+builder.Services.AddCors(options =>
 {
-    options.UseSqlite("Data Source=EventScheduling.db");
+    options.AddDefaultPolicy(
+        corsPolicyBuilder =>
+        {
+            corsPolicyBuilder.WithOrigins(allowedOrigins)
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
 });
 builder.Services.AddExceptionHandler<KnownExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
@@ -28,6 +38,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors();
 app.UseExceptionHandler();
 app.UseHttpsRedirection();
 app.MapControllers();
