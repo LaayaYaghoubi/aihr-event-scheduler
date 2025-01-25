@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using AIHR.EventScheduler.Persistence.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AIHR.EventScheduler.Persistence.EF.Migrations
 {
     [DbContext(typeof(EfDataContext))]
-    partial class EfDataContextModelSnapshot : ModelSnapshot
+    [Migration("20250125134359_AddUserIdToScheduledEvent")]
+    partial class AddUserIdToScheduledEvent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");

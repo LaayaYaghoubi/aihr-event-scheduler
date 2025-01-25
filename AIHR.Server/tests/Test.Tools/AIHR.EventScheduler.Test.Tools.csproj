@@ -12,4 +12,8 @@
       <ProjectReference Include="..\..\src\02.Infrastructure\Persistence.EF\AIHR.EventScheduler.Persistence.EF.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="NSubstitute" Version="5.3.0" />
+    </ItemGroup>
+
 </Project>

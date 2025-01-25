@@ -38,11 +38,12 @@ public class EfScheduledEventRepository(EfDataContext context) : IScheduledEvent
             .FirstOrDefaultAsync();
     }
 
-    public async Task<PagedList<GetScheduledEventDto>> GetAll(SortOrder sortOrder, Pagination pagination)
+    public async Task<PagedList<GetScheduledEventDto>> GetAll(string? userId, SortOrder sortOrder,
+        Pagination pagination)
     {
         var query = sortOrder == SortOrder.Descending
-            ? _scheduledEvents.OrderByDescending(e => e.DateRange.Start)
-            : _scheduledEvents.OrderBy(e => e.DateRange.Start);
+            ? _scheduledEvents.OrderByDescending(e => e.DateRange.Start).Where(e=>e.UserId == userId)
+            : _scheduledEvents.OrderBy(e => e.DateRange.Start).Where(e=>e.UserId == userId);
 
         var dtoQuery = query.Select(e => new GetScheduledEventDto(
             e.Id,

@@ -11,5 +11,5 @@ public interface IScheduledEventRepository : IRepository
     Task<ScheduledEvent?> FindById(int id);
     void Delete(ScheduledEvent scheduledEvent);
     Task<GetScheduledEventDto?> GetByIdAsync(int id);
-    Task<PagedList<GetScheduledEventDto>> GetAll(SortOrder sortOrder, Pagination pagination);
+    Task<PagedList<GetScheduledEventDto>> GetAll(string? userId, SortOrder sortOrder, Pagination pagination);
 }

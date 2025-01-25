@@ -12,7 +12,8 @@ namespace AIHR.EventScheduler.Test.Tools.ScheduledEvents
             {
                 Title = "dummy title",
                 Description = "dummy description",
-                DateRange = new DateRange(DateTime.Now, DateTime.Now.AddHours(2))
+                DateRange = new DateRange(DateTime.Now, DateTime.Now.AddHours(2)),
+                UserId = "userId"
             };
         }
 
@@ -31,6 +32,12 @@ namespace AIHR.EventScheduler.Test.Tools.ScheduledEvents
         public ScheduledEventBuilder WithDateRange(DateRange dateRange)
         {
             _scheduledEvent.DateRange = dateRange;
+            return this;
+        }
+
+        public ScheduledEventBuilder WithUserId(string userId)
+        {
+            _scheduledEvent.UserId = userId;
             return this;
         }
 

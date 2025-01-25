@@ -13,5 +13,6 @@ public class ScheduledEventConfig : IEntityTypeConfiguration<ScheduledEvent>
         _.Property(e => e.Title).HasMaxLength(70);
         _.Property(e => e.Description).HasMaxLength(250);
         _.ComplexProperty(e => e.DateRange).IsRequired();
+        _.Property(e => e.UserId).IsRequired();
     }
 }

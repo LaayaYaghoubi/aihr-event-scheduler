@@ -9,16 +9,19 @@ namespace AIHR.EventScheduler.Application.ScheduledEvents;
 
 public class ScheduledEventService(
     IScheduledEventRepository repository,
-    IUnitOfWork unitOfWork)
+    IUnitOfWork unitOfWork,
+    IUserService userService)
     : IScheduledEventService
 {
     public async Task<ScheduledEvent> AddAsync(AddScheduledEventDto dto)
-    {
+    { 
+        var userId = userService.GetUserId();
         var scheduledEvent = new ScheduledEvent
         {
             Title = dto.Title,
             Description = dto.Description,
-            DateRange = new DateRange(dto.Start, dto.End)
+            DateRange = new DateRange(dto.Start, dto.End),
+            UserId = userId
         };
 
         repository.Add(scheduledEvent);
@@ -52,7 +55,8 @@ public class ScheduledEventService(
 
     public async Task<PagedList<GetScheduledEventDto>> GetAllAsync(SortOrder sortOrder, Pagination pagination)
     {
-        return await repository.GetAll(sortOrder, pagination);
+        var userId = userService.GetUserId();
+        return await repository.GetAll(userId,sortOrder, pagination);
     }
 
     private async Task<ScheduledEvent?> ThrowIfScheduledEventNotFound(int id)
