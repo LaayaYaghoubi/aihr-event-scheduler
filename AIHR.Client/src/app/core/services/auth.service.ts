@@ -35,12 +35,13 @@ export class AuthService {
   }
 
   refreshToken(): Observable<LoginResponse> {
-    return this.httpClient.post<LoginResponse>('/refresh', this.refreshToken)
-    .pipe(map(response => {
-      localStorage.setItem('accessToken', response.accessToken);
-      document.cookie = `refreshToken=${response.accessToken}`;
-      return response;
-    }))
+    const refreshToken = this.getRefreshTokenFromCookie();
+    return this.httpClient.post<LoginResponse>(`${this.apiUrl}/refresh`, refreshToken)
+      .pipe(map(response => {
+        localStorage.setItem('accessToken', response.accessToken);
+        document.cookie = `refreshToken=${response.refreshToken}`;
+        return response;
+      }))
   }
 
 private getRefreshTokenFromCookie(): string | null {

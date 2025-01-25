@@ -2,12 +2,13 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from "@angular/core";
 import { AuthService } from "../services/auth.service";
 import { Observable, catchError, switchMap, throwError } from "rxjs";
+import { Router } from "@angular/router";
 
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -49,6 +50,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((error) => {
         console.error("Failed to refreshToken:", error);
         this.authService.logout();
+        this.router.navigate(['/login']);
         return throwError(() => error);
       }))
   }
