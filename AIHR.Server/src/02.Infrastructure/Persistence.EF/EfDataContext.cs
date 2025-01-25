@@ -1,9 +1,11 @@
 using AIHR.EventScheduler.Domain.Entities.ScheduledEvents;
+using AIHR.EventScheduler.Domain.Entities.Users;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AIHR.EventScheduler.Persistence.EF;
 
-public class EfDataContext : DbContext
+public class EfDataContext : IdentityDbContext<ApplicationUser>
 {
     public EfDataContext(DbContextOptions options) : base(options)
     {

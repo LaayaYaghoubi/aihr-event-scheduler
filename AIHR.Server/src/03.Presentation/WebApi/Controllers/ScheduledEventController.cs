@@ -2,12 +2,14 @@ using AIHR.EventScheduler.Application.ScheduledEvents.Contracts;
 using AIHR.EventScheduler.Application.ScheduledEvents.Contracts.Dto;
 using AIHR.EventScheduler.Domain.Entities.ScheduledEvents;
 using AIHR.EventSchedulerInfrastructure.Helper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AIHR.EventScheduler.WebApi.Controllers;
 
 [ApiController]
 [Route("api/v1/scheduled-event")]
+[Authorize]
 public class ScheduledEventController(IScheduledEventService scheduledEventService) : ControllerBase
 {
     [HttpPost]
