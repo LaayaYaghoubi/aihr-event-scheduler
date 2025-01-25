@@ -10,11 +10,14 @@ namespace AIHR.EventScheduler.Application.ScheduledEvents;
 public class ScheduledEventService(
     IScheduledEventRepository repository,
     IUnitOfWork unitOfWork,
-    IUserService userService)
+    IUserService userService,
+    IDateTimeService dateTimeService)
     : IScheduledEventService
 {
     public async Task<ScheduledEvent> AddAsync(AddScheduledEventDto dto)
-    { 
+    {
+        ThrowIfStartIsBeforeNow(dto.Start);
+        
         var userId = userService.GetUserId();
         var scheduledEvent = new ScheduledEvent
         {
@@ -28,10 +31,11 @@ public class ScheduledEventService(
         await unitOfWork.Complete();
         return scheduledEvent;
     }
-
+    
     public async Task UpdateAsync(int id, UpdateScheduledEventDto dto)
     {
         var scheduledEvent = await ThrowIfScheduledEventNotFound(id);
+        ThrowIfStartIsBeforeNow(dto.Start);
 
         scheduledEvent!.Description = dto.Description;
         scheduledEvent.Title = dto.Title;
@@ -65,5 +69,11 @@ public class ScheduledEventService(
         if (scheduledEvent == null)
             throw new ScheduledEventNotFoundException();
         return scheduledEvent;
+    }
+    
+    private void ThrowIfStartIsBeforeNow(DateTime start)
+    {
+        if (start <= dateTimeService.Now)
+            throw new ScheduledEventCanNotBeInPastException();
     }
 }
