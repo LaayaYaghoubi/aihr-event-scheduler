@@ -10,9 +10,9 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { ScheduledEvent } from '../../../domain/models/ScheduledEvent.model';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { ScheduledEventService } from '../../../domain/services/scheduled-event.service';
+import { ScheduledEventService } from '../../core/services/scheduled-event.service';
+import { ScheduledEvent } from '../../shared/models/scheduled-event.model';
 
 @Component({
   selector: 'app-create-edit-event',
@@ -111,7 +111,7 @@ export class CreateEditEventComponent implements OnInit {
         this.router.navigate(['/dashboard/events'], { state: { refreshed: true } });
       },
       error: (err) => {
-        console.error('Error deleting scheduled event', err.message);
+        console.error('Error adding scheduled event', err.message);
         this._snackBar.open(err.message, '', {
           horizontalPosition: 'center',
           verticalPosition: 'bottom',

@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { ScheduledEvent } from '../../../domain/models/ScheduledEvent.model';
+import { ScheduledEvent } from '../../../../shared/models/scheduled-event.model';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatLabel } from '@angular/material/form-field';
@@ -13,8 +13,8 @@ import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { NgIf } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
-import { PaginatedResponse } from '../../../domain/models/PaginatedResponse.model';
-import { ScheduledEventService } from '../../../domain/services/scheduled-event.service';
+import { PaginatedResponse } from '../../../../shared/models/paginated-response.model';
+import { ScheduledEventService } from '../../../../core/services/scheduled-event.service';
 
 @Component({
   selector: 'app-events',

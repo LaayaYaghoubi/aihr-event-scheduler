@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { ScheduledEvent } from '../../domain/models/ScheduledEvent.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../../environments/environment.development';
 import { Observable } from 'rxjs';
-import { PaginatedResponse } from '../../domain/models/PaginatedResponse.model';
+import { PaginatedResponse } from '../../shared/models/paginated-response.model';
+import { ScheduledEvent } from '../../shared/models/scheduled-event.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class ScheduledEventService {
 
   constructor(
     private httpClient: HttpClient) { }
-  private apiUrl = environment.apiUrl + '/v1/scheduled-event';
+  private apiUrl = environment.apiUrl + '/api/v1/scheduled-event';
 
 
   getScheduledEvents(
