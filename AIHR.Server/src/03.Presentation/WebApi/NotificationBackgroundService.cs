@@ -17,7 +17,7 @@ public class NotificationBackgroundService(
     public Task StartAsync(CancellationToken cancellationToken)
     {
         logger.LogInformation("Notification Background Service is starting.");
-        _timer = new Timer(CheckForUpcomingEvents, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
+        _timer = new Timer(CheckForUpcomingEvents, null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
         return Task.CompletedTask;
     }
     

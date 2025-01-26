@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgIf } from '@angular/common';
+import { SignalRService } from '../../../core/services/signalr.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
     form: FormGroup;
     loading: boolean = false;
 
-    constructor(private fb: FormBuilder, private _snackBar: MatSnackBar, private router: Router, private authService: AuthService) {
+    constructor(private fb: FormBuilder, private _snackBar: MatSnackBar, private router: Router, private authService: AuthService, private signalRService: SignalRService) {
       this.form = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required]
@@ -51,8 +52,13 @@ export class LoginComponent implements OnInit {
           duration: 1500,
         });
         },
-        error: (err) => this.error()
+        error: () => this.error(),
+        complete: () => {
+          this.signalRService.startConnection();
+          this.signalRService.addMessageListener();
+        }
       });
+      
     }
 
     register() {
