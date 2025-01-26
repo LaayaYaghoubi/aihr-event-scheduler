@@ -17,7 +17,7 @@ public class ScheduledEventService(
     public async Task<ScheduledEvent> AddAsync(AddScheduledEventDto dto)
     {
         ThrowIfStartIsBeforeNow(dto.Start);
-        
+
         var userId = userService.GetUserId();
         var scheduledEvent = new ScheduledEvent
         {
@@ -31,7 +31,7 @@ public class ScheduledEventService(
         await unitOfWork.Complete();
         return scheduledEvent;
     }
-    
+
     public async Task UpdateAsync(int id, UpdateScheduledEventDto dto)
     {
         var scheduledEvent = await ThrowIfScheduledEventNotFound(id);
@@ -60,7 +60,7 @@ public class ScheduledEventService(
     public async Task<PagedList<GetScheduledEventDto>> GetAllAsync(SortOrder sortOrder, Pagination pagination)
     {
         var userId = userService.GetUserId();
-        return await repository.GetAll(userId,sortOrder, pagination);
+        return await repository.GetAll(userId, sortOrder, pagination);
     }
 
     private async Task<ScheduledEvent?> ThrowIfScheduledEventNotFound(int id)
@@ -70,10 +70,18 @@ public class ScheduledEventService(
             throw new ScheduledEventNotFoundException();
         return scheduledEvent;
     }
-    
+
     private void ThrowIfStartIsBeforeNow(DateTime start)
     {
         if (start <= dateTimeService.Now)
             throw new ScheduledEventCanNotBeInPastException();
+    }
+
+    public async Task Notified(int eventId)
+    {
+        var scheduledEvent = await ThrowIfScheduledEventNotFound(eventId);
+        
+        scheduledEvent!.IsNotified = true;
+        await unitOfWork.Complete();
     }
 }

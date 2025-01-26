@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Diagnostics;
 
 namespace AIHR.EventScheduler.WebApi.Configs.Middlewares;
 
-public class KnownExceptionHandler : IExceptionHandler
+public class  KnownExceptionHandler : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception exception,
         CancellationToken cancellationToken)

@@ -8,5 +8,6 @@ public class ScheduledEvent : BaseEntity<int>
     public string Description { get; set; }
     public DateRange DateRange { get; set; }
     public string UserId { get; set; }
+    public bool IsNotified { get; set; }
 }
   

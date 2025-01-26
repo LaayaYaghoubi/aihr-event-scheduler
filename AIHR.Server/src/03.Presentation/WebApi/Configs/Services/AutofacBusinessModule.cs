@@ -4,6 +4,7 @@ using AIHR.EventScheduler.Persistence.EF;
 using AIHR.EventSchedulerInfrastructure.Dates.Services;
 using AIHR.EventSchedulerInfrastructure.Services;
 using Autofac;
+using Microsoft.AspNetCore.SignalR;
 
 namespace AIHR.EventScheduler.WebApi.Configs.Services;
 
@@ -34,6 +35,11 @@ public class AutofacBusinessModule : Module
         container.RegisterType<UserService>()
             .As<IUserService>()
             .SingleInstance();
+        
+        container.RegisterType<UserIdProvider>()
+            .As<IUserIdProvider>()
+            .SingleInstance();
+        
 
         base.Load(container);
     }

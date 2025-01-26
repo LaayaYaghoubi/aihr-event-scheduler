@@ -12,4 +12,5 @@ public interface IScheduledEventService : IService
     Task Delete(int id);
     Task<GetScheduledEventDto?> GetByIdAsync(int id);
     Task<PagedList<GetScheduledEventDto>> GetAllAsync(SortOrder sortOrder, Pagination pagination);
+    Task Notified(int eventId);
 }

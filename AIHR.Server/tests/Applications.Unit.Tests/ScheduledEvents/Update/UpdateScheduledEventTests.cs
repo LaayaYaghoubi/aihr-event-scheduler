@@ -79,4 +79,29 @@ public class UpdateScheduledEventTests : BusinessUnitTest
         await Assert.ThrowsAsync<ScheduledEventCanNotBeInPastException>(() =>
             _sut.UpdateAsync(scheduledEvent.Id, updateScheduledEventDto));
     }
+
+    [Fact]
+    public async Task Notified_withValidEventId_UpdatesIsNotifiedProperly()
+    {
+        var scheduledEvent = new ScheduledEventBuilder().Build();
+        Save(scheduledEvent);
+
+        await _sut.Notified(scheduledEvent.Id);
+        
+        var actualEvent =
+            await ReadContext
+                .Set<ScheduledEvent>()
+                .SingleAsync(se => se.Id == scheduledEvent.Id);
+
+        Assert.True(actualEvent.IsNotified);
+        Assert.False(scheduledEvent.IsNotified);
+    }
+    
+    [Theory]
+    [InlineData(0)]
+    public async Task Notified_WithNonExistentId_ShouldThrowException(int dummyId)
+    {
+        await Assert.ThrowsAsync<ScheduledEventNotFoundException>(() =>
+            _sut.Notified(dummyId));
+    }
 }

@@ -1,5 +1,6 @@
 using AIHR.EventScheduler.Domain.Entities.Users;
 using AIHR.EventScheduler.Persistence.EF;
+using AIHR.EventScheduler.WebApi;
 using AIHR.EventScheduler.WebApi.Configs.Middlewares;
 using AIHR.EventScheduler.WebApi.Configs.Services;
 using Microsoft.AspNetCore.Authentication.BearerToken;
@@ -38,16 +39,16 @@ builder.Services.AddSwaggerGen(o =>
 });
 builder.Host.AddAutofacConfig();
 
-
 var allowedOrigins = builder.Configuration.GetValue<string>("AllowedOrigins")!.Split(",");
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", policyBuilder =>
     {
         policyBuilder.AllowAnyHeader()
             .AllowAnyMethod()
-            .WithOrigins(allowedOrigins);
+            .WithOrigins(allowedOrigins)
+            .AllowCredentials();
+        ;
     });
 });
 builder.Services.AddDbContextPool<EfDataContext>(options => { options.UseSqlite("Data Source=EventScheduling.db"); });
@@ -71,6 +72,9 @@ builder.Services.AddExceptionHandler<KnownExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 builder.Services.AddControllers();
+builder.Services.AddSignalR();
+builder.Services.AddHostedService<NotificationBackgroundService>();
+
 
 var app = builder.Build();
 
@@ -85,6 +89,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors("CorsPolicy");
 app.MapIdentityApi<ApplicationUser>();
 
+
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -92,6 +97,8 @@ app.UseAuthorization();
 app.UseExceptionHandler();
 
 app.MapControllers();
+app.MapHub<NotificationHub>("/notificationHub");
+
 app.Run();
 
 void EnsureDatabaseCreated(WebApplication application)
