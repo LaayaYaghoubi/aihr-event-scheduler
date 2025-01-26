@@ -64,7 +64,7 @@ builder.Services.AddIdentityApiEndpoints<ApplicationUser>(options =>
 
 builder.Services.ConfigureAll<BearerTokenOptions>(options =>
 {
-    options.BearerTokenExpiration = TimeSpan.FromMinutes(30);
+    options.BearerTokenExpiration = TimeSpan.FromHours(1);
 });
 builder.Services.AddAuthorization();
 

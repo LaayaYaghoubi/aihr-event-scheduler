@@ -14,13 +14,13 @@ export class AuthService {
 
   private apiUrl = environment.apiUrl;
 
-  login(credential: LoginRequest): Observable<LoginResponse> 
+  login(credential: LoginRequest): Observable<LoginResponse>
   {
     return this.httpClient.post<LoginResponse>(`${this.apiUrl}/login`, credential).
     pipe(map(response => {
 
       localStorage.setItem('accessToken', response.accessToken);
-      document.cookie = `refreshToken=${response.accessToken}`;
+      document.cookie = `refreshToken=${response.refreshToken}`;
       return response;
     }))
   }
@@ -36,7 +36,8 @@ export class AuthService {
 
   refreshToken(): Observable<LoginResponse> {
     const refreshToken = this.getRefreshTokenFromCookie();
-    return this.httpClient.post<LoginResponse>(`${this.apiUrl}/refresh`, refreshToken)
+
+    return this.httpClient.post<LoginResponse>(`${this.apiUrl}/refresh`, {refreshToken: refreshToken})
       .pipe(map(response => {
         localStorage.setItem('accessToken', response.accessToken);
         document.cookie = `refreshToken=${response.refreshToken}`;
@@ -58,6 +59,7 @@ private getRefreshTokenFromCookie(): string | null {
 
 logout(): void {
   localStorage.removeItem('accessToken');
+  document.cookie ='';
 }
 
 isLoggedIn(): boolean {
