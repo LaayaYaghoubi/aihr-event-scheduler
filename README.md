@@ -1,4 +1,4 @@
-# AIHR Event Scheduler
+[Demo.webm](https://github.com/user-attachments/assets/2dc85e89-5a59-4762-97c2-39493b176454)# AIHR Event Scheduler
 
 ## Overview
 
@@ -56,3 +56,5 @@ While functional, some areas require further work on responsiveness, validation,
 
 ## Conclusion
 This project showcases an event scheduling system built with modern tools and best practices. Implementing the frontend application from scratch was both challenging and rewarding, providing a deeper understanding of UI development and integration. The process was a valuable learning experience, particularly in real-time communication, clean architecture, and creating a seamless user experience. I welcome feedback and suggestions for improvement to further refine this application.
+
+[Demo.webm](https://github.com/user-attachments/assets/19940883-3842-46a1-b9ba-3a4ed711a806)
