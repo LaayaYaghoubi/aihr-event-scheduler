@@ -1,4 +1,4 @@
 export const environment = {
-    apiUrl : 'https://localhost:7115',
-    notificationHubUrl: 'https://localhost:7115/notificationHub'
+    apiUrl : 'http://localhost:8080',
+    notificationHubUrl: 'http://localhost:8080/notificationHub'
 };

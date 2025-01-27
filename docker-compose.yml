@@ -1,0 +1,29 @@
+
+networks:
+  app_net:
+    name: mynetwork
+
+services:
+  backend:
+    image: backend
+    container_name: backend
+    build:
+      context: AIHR.Server
+      dockerfile: src/03.Presentation/WebApi/Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - app_net
+
+  frontend:
+    image: frontend
+    container_name: frontend
+    build:
+      context: AIHR.Client
+      dockerfile: Dockerfile
+    depends_on:
+      - backend
+    ports:
+      - "81:4200"
+    networks:
+      - app_net

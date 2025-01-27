@@ -39,6 +39,10 @@ notificationHubUrl = environment.notificationHubUrl;
     });
   }
 
+  public stopConnection = () => {
+    this.hubConnection.stop();
+  }
+
   public acknowledgeNotification( eventId: number) {
     this.hubConnection.invoke('AcknowledgeNotification', eventId)
       .then(() => console.log(`Acknowledgment sent for event ${eventId}`))

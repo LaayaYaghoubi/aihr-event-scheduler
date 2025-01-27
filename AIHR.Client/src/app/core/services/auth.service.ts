@@ -4,13 +4,14 @@ import { map, Observable, pipe } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { LoginRequest } from '../../features/login/models/login-request.model';
 import { LoginResponse } from '../../features/login/models/login-response.model';
+import { SignalRService } from './signalr.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private signalrService: SignalRService ) { }
 
   private apiUrl = environment.apiUrl;
 
@@ -60,6 +61,7 @@ private getRefreshTokenFromCookie(): string | null {
 logout(): void {
   localStorage.removeItem('accessToken');
   document.cookie ='';
+  this.signalrService.stopConnection();
 }
 
 isLoggedIn(): boolean {
