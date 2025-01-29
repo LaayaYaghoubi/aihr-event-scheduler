@@ -112,7 +112,7 @@ export class CreateEditEventComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error adding scheduled event', err.message);
-        this._snackBar.open(err.message, '', {
+        this._snackBar.open(err.error, '', {
           horizontalPosition: 'center',
           verticalPosition: 'bottom',
           duration: 2000,
@@ -134,7 +134,7 @@ export class CreateEditEventComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error editing scheduled event', err);
-        this._snackBar.open('Error deleting scheduled event', '', {
+        this._snackBar.open(err.error, '', {
           horizontalPosition: 'center',
           verticalPosition: 'bottom',
           duration: 1500,
