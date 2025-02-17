@@ -103,7 +103,7 @@ export class EventsComponent implements AfterViewInit, OnInit {
       },
       error: (err) => {
       console.error('Error deleting scheduled event', err);
-      this._snackBar.open('Error deleting scheduled event', '', {
+      this._snackBar.open(err.error, '', {
         horizontalPosition: 'center',
         verticalPosition: 'bottom',
         duration: 1500,
